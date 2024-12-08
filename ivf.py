@@ -10,11 +10,11 @@ from datetime import datetime,timedelta
 def destroying_theird_window(theird_window):
     theird_window.destroy()
     login_window()
-
-
-def login_window():
+ 
+def login_window(first_window):
+    first_window.destroy()
     
-    second_window=tk.Toplevel()
+    second_window=tk.Tk()
     second_window.title("Internshp Vacancy Finder")
     second_window.configure(bg="white")
     second_window.geometry("2000x2000") 
@@ -171,7 +171,7 @@ def singup_window(second_window):
     
     second_window.destroy()
    
-    theird_window=tk.Toplevel()
+    theird_window=tk.Tk()
     theird_window.title("Internshp Vacancy Finder")
     theird_window.geometry("2000x2000")
     theird_window.configure(bg="white")
@@ -334,7 +334,7 @@ def calling_infromation_window3(seventh_window):
 
 def information_window():
     
-    forth_window=tk.Toplevel()
+    forth_window=tk.Tk()
     forth_window.title("Internshp Vacancy Finder")
     forth_window.geometry("2000x2000")
     forth_window.configure(bg="#000080")
@@ -427,7 +427,7 @@ def see_vacancy(forth_window):
 
     forth_window.destroy()
 
-    fifth_window=tk.Toplevel()
+    fifth_window=tk.Tk()
     fifth_window.title("Internshp Vacancy Finder")
     fifth_window.geometry("2000x2000")
     fifth_window.configure(bg="white")
@@ -631,7 +631,7 @@ def update():
     global registered_username
     print("issue resoveled",registered_username)
     
-    sixth_window=tk.Toplevel()
+    sixth_window=tk.Tk()
     sixth_window.title("Internshp Vacancy Finder")
     sixth_window.geometry("2000x2000")
     sixth_window.configure(bg="white")
@@ -756,7 +756,7 @@ def aboutus(forth_window):
 
     forth_window.destroy()
 
-    seventh_window=tk.Toplevel()
+    seventh_window=tk.Tk()
     seventh_window.title("Internshp Vacancy Finder")
     seventh_window.geometry("2000x2000")
     seventh_window.configure(bg="white")
@@ -900,7 +900,7 @@ def opening_window():
  
     print("old record delete successfully")
       
-    button=tk.Button(first_window,text="LOG IN",bg="light blue",font=("bold",14),width=21,command=login_window)
+    button=tk.Button(first_window,text="LOG IN",bg="light blue",font=("bold",14),width=21,command=lambda:login_window(first_window))
     button.place(x=980,y=500) 
      
     def touch_button(event):
