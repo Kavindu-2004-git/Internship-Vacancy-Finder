@@ -15,7 +15,6 @@ def destroying_first_window(first_window):
     first_window.destroy()
     login_window()
     
- 
 def login_window():
     
     second_window=tk.Tk()
@@ -602,9 +601,6 @@ def see_vacancy(forth_window):
 
 def check_update(forth_window):
 
-
-    forth_window.destroy()
-
     connection = pymysql.connect(
     host="localhost",
     user="root",
@@ -616,14 +612,15 @@ def check_update(forth_window):
     check_result= query.fetchall()
     print(check_result)
 
-    if  check_result[0][0] != "student" and check_result[0][1][0] == "0": 
+    if  check_result[0][0] != "student" and check_result[0][1][0] == "0":
+        forth_window.destroy() 
         update()
        
 
     else:
         tk.messagebox.showerror("User Not Allowed", " You are not allowed to update vacancies ") 
-    query.close()
-    connection.close() 
+        query.close()
+        connection.close() 
     
        
 def update():
@@ -849,7 +846,6 @@ def opening_window():
     icon_image=Image.open("C:\\Users\\iFix Technology\\Desktop\\Internship Vacancy Finder\\lg.png")
     icon_photo=ImageTk.PhotoImage(icon_image)
     first_window.iconphoto(False,icon_photo)
-
 
     app_logo = icon_image.resize((290, 290), Image.Resampling.LANCZOS)
     app_logo_photo = ImageTk.PhotoImage(app_logo)
