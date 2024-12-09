@@ -622,13 +622,12 @@ def check_update(forth_window):
 
     else:
         tk.messagebox.showerror("User Not Allowed", " You are not allowed to update vacancies ") 
-        query.close()
-        connection.close() 
+    query.close()
+    connection.close() 
     
        
 def update():
 
-    global registered_username
     print("issue resoveled",registered_username)
     
     sixth_window=tk.Tk()
@@ -719,6 +718,7 @@ def update():
             (comname,post,location,req,email,duration,sresult,department))
             connection.commit()  
             print("update successfull")
+            tk.messagebox.showerror("Successfull", "Successfully updated the vacancy")
             query.close()
             connection.close()
     
