@@ -10,9 +10,13 @@ from datetime import datetime,timedelta
 def destroying_theird_window(theird_window):
     theird_window.destroy()
     login_window()
- 
-def login_window(first_window):
+
+def destroying_first_window(first_window):
     first_window.destroy()
+    login_window()
+    
+ 
+def login_window():
     
     second_window=tk.Tk()
     second_window.title("Internshp Vacancy Finder")
@@ -236,11 +240,7 @@ def singup_window(second_window):
     password_entry = tk.Entry(theird_window, font=("bold", 14), width=35, show="*",bg="light blue")
     password_entry.place(x=200, y=540)
 
-    
-   
-    def register(): 
-
-      
+    def register():       
         connection = pymysql.connect(
         host="localhost",
         user="root",
@@ -260,9 +260,6 @@ def singup_window(second_window):
         password = password_entry.get()
         print(f"Registering username: {username}, password: {password}")
 
-        
-        if  fname == "" or lname == "" or age == " " or email == " " or telno == "" or gender == "" or position == ""  or  username == "" or password == "":
-            tk.messagebox.showerror("Error", "All fields are required")
 
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
         
@@ -270,19 +267,22 @@ def singup_window(second_window):
         query.execute("SELECT * FROM user WHERE name=%s", (username,))
         result = query.fetchall()
     
-        if result:
-            tk.messagebox.showerror("Error", "This username has already been taken")
-            return
+        if  fname == "" or lname == "" or age == " " or email == " " or telno == "" or gender == "" or position == ""  or  username == "" or password == "":
+            tk.messagebox.showerror("Error", "All fields are required")
         else:
-            query.execute("INSERT INTO user (first_name,last_name,age,email,telephone_number,gender,position,name,password) VALUES (%s, %s,%s, %s,%s, %s,%s, %s,%s)",
-            (fname,lname,age,email,telno,gender,position,username, hashed_password))
-        connection.commit()  
+            if result:
+                tk.messagebox.showerror("Error", "This username has already been taken")
+             
+            else:
+                query.execute("INSERT INTO user (first_name,last_name,age,email,telephone_number,gender,position,name,password) VALUES (%s, %s,%s, %s,%s, %s,%s, %s,%s)",
+                (fname,lname,age,email,telno,gender,position,username, hashed_password))
+                connection.commit()  
 
-        query.close()
-        connection.close()
+                query.close()
+                connection.close()
         
-        theird_window.destroy()
-        login_window()
+                theird_window.destroy()
+                login_window()
 
    
     submit_button = tk.Button(theird_window, text="Submit", bg="green", fg="white", width=17, font=("bold", 14), command=register)
@@ -900,7 +900,7 @@ def opening_window():
  
     print("old record delete successfully")
       
-    button=tk.Button(first_window,text="LOG IN",bg="light blue",font=("bold",14),width=21,command=lambda:login_window(first_window))
+    button=tk.Button(first_window,text="LOG IN",bg="light blue",font=("bold",14),width=21,command=lambda:destroying_first_window(first_window))
     button.place(x=980,y=500) 
      
     def touch_button(event):
